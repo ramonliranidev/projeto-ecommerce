@@ -15,6 +15,7 @@ import { get } from "lodash";
 interface PageProps {
   productLaunches: Product[];
   productBestSeller: Product[];
+  
 }
 
 const Page: NextPageWithLayout<PageProps> = (props: PageProps) => {
