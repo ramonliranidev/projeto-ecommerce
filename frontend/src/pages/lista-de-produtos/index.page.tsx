@@ -1,16 +1,15 @@
-import { NextPageWithLayout } from "@/interfaces/NextPageWithLayout";
-import { Layout } from "@/components/site/layout";
-import { Fragment, useState, ReactElement } from "react";
-import { Dialog, Disclosure, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import Breadcrumbs from "@/components/shared/breadcrumbs";
-import SelectMenu from "@/components/shared/select-menu";
 import { CardProduct } from "@/components/shared/card-product";
 import { Pagination } from "@/components/shared/pagination";
+import SelectMenu from "@/components/shared/select-menu";
+import { Layout } from "@/components/site/layout";
+import { NextPageWithLayout } from "@/interfaces/NextPageWithLayout";
 import { PaginationResponse } from "@/interfaces/PaginationResponse";
 import { Product } from "@/interfaces/Product";
+import { Dialog, Disclosure, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
+import { Fragment, ReactElement, useState } from "react";
 
 const optionsSortBy = [
   "Mais relevantes",

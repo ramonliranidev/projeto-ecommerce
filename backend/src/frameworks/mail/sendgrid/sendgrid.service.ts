@@ -1,11 +1,11 @@
-import sgMail from '@sendgrid/mail';
-import fs from 'node:fs';
-import handlebars from 'handlebars';
 import {
   IMailService,
   IMailServiceProps,
 } from '@core/abstracts/mail-services.abstract';
 import { env } from '@env';
+import sgMail from '@sendgrid/mail';
+import handlebars from 'handlebars';
+import fs from 'node:fs';
 
 export class SendgridService implements IMailService {
   async sendEmail({

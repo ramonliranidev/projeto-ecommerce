@@ -1,15 +1,15 @@
 import { type ReactElement } from "react";
 
-import { Layout } from "@/components/site/layout";
-import { NextPageWithLayout } from "@/interfaces/NextPageWithLayout";
-import { Banner } from "@/components/site/home/banner";
-import { Bestseller } from "@/components/site/home/bestseller";
-import { DeliveryDetails } from "@/components/site/home/delivery-details";
 import { Highlights } from "@/components/shared/highlights";
 import { Launch } from "@/components/shared/launch";
 import { Tips } from "@/components/shared/tips";
-import fetchJson from "@/lib/fetch-json";
+import { Banner } from "@/components/site/home/banner";
+import { Bestseller } from "@/components/site/home/bestseller";
+import { DeliveryDetails } from "@/components/site/home/delivery-details";
+import { Layout } from "@/components/site/layout";
+import { NextPageWithLayout } from "@/interfaces/NextPageWithLayout";
 import { Product } from "@/interfaces/Product";
+import fetchJson from "@/lib/fetch-json";
 import { get } from "lodash";
 
 interface PageProps {
