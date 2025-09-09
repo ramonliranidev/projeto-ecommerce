@@ -1,20 +1,20 @@
-import { Response } from 'express';
+import { CurrentUser } from '@auth-decorators/current-user.decorator';
+import { Public } from '@auth-decorators/public.decorator';
+import { ForgotPasswordDto } from '@core/dtos/forgot-password.dto';
+import { LoginDto } from '@core/dtos/login.dto';
+import { RecoverPasswordDto } from '@core/dtos/recover-password.dto';
+import { User } from '@core/entities/user.entity';
 import {
   Body,
   Controller,
-  Post,
   Get,
-  Res,
   Param,
+  Post,
+  Res,
   UseInterceptors,
 } from '@nestjs/common';
-import { LoginDto } from '@core/dtos/login.dto';
 import { AuthUseCases } from '@use-cases/auth/auth.use-case';
-import { User } from '@core/entities/user.entity';
-import { Public } from '@auth-decorators/public.decorator';
-import { CurrentUser } from '@auth-decorators/current-user.decorator';
-import { ForgotPasswordDto } from '@core/dtos/forgot-password.dto';
-import { RecoverPasswordDto } from '@core/dtos/recover-password.dto';
+import { Response } from 'express';
 import { SentryInterceptor } from '../../../interceptors/sentry.interceptor';
 @UseInterceptors(SentryInterceptor)
 @Controller('auth')

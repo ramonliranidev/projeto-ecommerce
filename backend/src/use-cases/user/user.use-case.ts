@@ -1,25 +1,24 @@
+import { IMailService } from '@core/abstracts/mail-services.abstract';
+import { PageMetaDto } from '@core/dtos/page-meta.dto';
+import { PageDto } from '@core/dtos/page.dto';
+import { PaginationOptionsDto } from '@core/dtos/pagination-options.dto';
+import { CreateUserDto, UpdateUserDto } from '@core/dtos/user.dto';
+import { User } from '@core/entities/user.entity';
+import { genericError, notFoundError } from '@helpers/errors';
+import { excludeFieldFromUser } from '@helpers/excludeFieldFromUser';
+import { getEmailTemplatePath } from '@helpers/getEmailTemplatePath';
+import { validateCPFCNPJ } from '@helpers/validateCpfCnpj';
 import {
   BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { get, isEmpty } from 'lodash';
-import { randomUUID } from 'crypto';
-import { User } from '@core/entities/user.entity';
-import { CreateUserDto, UpdateUserDto } from '@core/dtos/user.dto';
 import { PrismaService } from '@prisma/prisma.service';
-import { UserFactoryService } from './user-factory.service';
-import { excludeFieldFromUser } from '@helpers/excludeFieldFromUser';
-import { IMailService } from '@core/abstracts/mail-services.abstract';
-import { getEmailTemplatePath } from '@helpers/getEmailTemplatePath';
-import { validateCPFCNPJ } from '@helpers/validateCpfCnpj';
-import { PaginationOptionsDto } from '@core/dtos/pagination-options.dto';
-import { PageMetaDto } from '@core/dtos/page-meta.dto';
-import { PageDto } from '@core/dtos/page.dto';
 import { FileUseCases } from '@use-cases/file/file.use-case';
-import { genericError, notFoundError } from '@helpers/errors';
-import { env } from '@env';
+import { randomUUID } from 'crypto';
+import { get } from 'lodash';
+import { UserFactoryService } from './user-factory.service';
 
 @Injectable()
 export class UserUseCases {

@@ -1,10 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import fs from 'fs';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { env } from '@env';
-import mime from 'mime';
 import s3 from '@helpers/aws';
+import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
+import fs from 'fs';
 
 @Injectable()
 export class FileUseCases {
@@ -23,31 +22,7 @@ export class FileUseCases {
         }),
       );
 
-      return env.AWS_BASE_URL + basePathS3;
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  async uploadQrCodeToS3(fileName: string, filePath: string) {
-    try {
-      if (!fs.existsSync(filePath)) return;
-      const fileContent = fs.readFileSync(filePath);
-      const mimeType = mime.getType(filePath);
-
-      const bucketName = env.AWS_BUCKET_NAME as string;
-      const basePathS3 = `albums/qrcode/${fileName}`;
-
-      await s3.send(
-        new PutObjectCommand({
-          Bucket: bucketName,
-          Key: basePathS3,
-          Body: fileContent,
-          ContentType: mimeType,
-        }),
-      );
-
-      return env.AWS_BASE_URL + basePathS3;
+      return `${env.AWS_BASE_URL}/${basePathS3}`;
     } catch (error) {
       throw new Error(error);
     }
@@ -67,7 +42,7 @@ export class FileUseCases {
       }
 
       const bucketName = env.AWS_BUCKET_NAME as string;
-      const basePathS3 = `albums/personMainPhoto/${fileName}`;
+      const basePathS3 = `uploads/${fileName}`;
 
       await s3.send(
         new PutObjectCommand({
@@ -79,7 +54,7 @@ export class FileUseCases {
         }),
       );
 
-      return env.AWS_BASE_URL + basePathS3;
+      return `${env.AWS_BASE_URL}/${basePathS3}`;
     } catch (error) {
       throw new Error(error);
     }

@@ -1,16 +1,12 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from '@prisma/prisma.service';
-import { RoleFactoryService } from './role-factory.service';
-import { CreateRoleDto, UpdateRoleDto } from '@core/dtos/role.dto';
-import { PaginationOptionsDto } from '@core/dtos/pagination-options.dto';
 import { PageMetaDto } from '@core/dtos/page-meta.dto';
 import { PageDto } from '@core/dtos/page.dto';
-import { MenuItemUseCases } from '@use-cases/menu-item/menu-item.use-case';
+import { PaginationOptionsDto } from '@core/dtos/pagination-options.dto';
+import { CreateRoleDto, UpdateRoleDto } from '@core/dtos/role.dto';
 import { genericError, notFoundError } from '@helpers/errors';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '@prisma/prisma.service';
+import { MenuItemUseCases } from '@use-cases/menu-item/menu-item.use-case';
+import { RoleFactoryService } from './role-factory.service';
 
 @Injectable()
 export class RoleUseCases {

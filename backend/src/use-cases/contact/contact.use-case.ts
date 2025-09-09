@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { CreateContactDto } from '@core/dtos/contact.dto';
-import { getEmailTemplatePath } from '@helpers/getEmailTemplatePath';
 import { IMailService } from '@core/abstracts/mail-services.abstract';
+import { CreateContactDto } from '@core/dtos/contact.dto';
 import { genericError } from '@helpers/errors';
+import { getEmailTemplatePath } from '@helpers/getEmailTemplatePath';
 
 @Injectable()
 export class ContactUseCases {

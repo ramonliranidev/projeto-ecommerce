@@ -1,18 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { isBefore, subDays } from 'date-fns';
 import { randomUUID } from 'crypto';
-import { chain, get, omit } from 'lodash';
+import { isBefore, subDays } from 'date-fns';
+import { chain, get } from 'lodash';
 
-import { PrismaService } from '@prisma/prisma.service';
-import { User } from '@core/entities/user.entity';
-import { decryptPassword } from '@helpers/decryptPassword';
-import { excludeFieldFromUser } from '@helpers/excludeFieldFromUser';
-import { env } from '@env';
 import { IMailService } from '@core/abstracts/mail-services.abstract';
-import { getEmailTemplatePath } from '@helpers/getEmailTemplatePath';
+import { User } from '@core/entities/user.entity';
+import { env } from '@env';
+import { decryptPassword } from '@helpers/decryptPassword';
 import { encryptPassword } from '@helpers/encryptPassword';
 import { genericError } from '@helpers/errors';
+import { excludeFieldFromUser } from '@helpers/excludeFieldFromUser';
+import { getEmailTemplatePath } from '@helpers/getEmailTemplatePath';
+import { PrismaService } from '@prisma/prisma.service';
 
 type UserWithoutPassword = Omit<User, 'password'>;
 
@@ -29,7 +29,10 @@ export class AuthUseCases {
     private mailService: IMailService,
   ) {}
 
-  async validateUser(login: string, password: string) {
+  async validateUser(
+    login: string,
+    password: string,
+  ): Promise<UserWithoutPassword> {
     const user = await this.prismaService.user.findFirst({
       where: {
         OR: [{ email: login }, { username: login }],
@@ -43,7 +46,10 @@ export class AuthUseCases {
     }
 
     if (user && decryptPassword(user.password) === password) {
-      return excludeFieldFromUser(user, 'password');
+      return excludeFieldFromUser(
+        user as User,
+        'password',
+      ) as UserWithoutPassword;
     }
 
     throw new NotFoundException('E-mail ou senha incorreto.');
@@ -87,7 +93,7 @@ export class AuthUseCases {
       });
 
       return { error: false };
-    } catch (error) {
+    } catch {
       throw genericError;
     }
   }
