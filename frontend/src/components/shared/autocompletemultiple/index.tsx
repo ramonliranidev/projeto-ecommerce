@@ -1,5 +1,5 @@
 import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Fragment, InputHTMLAttributes, useState } from "react";
 
 import { Control, Controller, FieldError } from "react-hook-form";
@@ -25,10 +25,6 @@ export default function AutocompleteMultiple({
   name,
   error,
 }: AutocompleteMultipleProps) {
-  const [selectedOptions, setSelectedOptions] = useState([
-    options[0],
-    options[1],
-  ]);
   const [query, setQuery] = useState("");
 
   const filteredPeople =
@@ -75,7 +71,7 @@ export default function AutocompleteMultiple({
                   }
                 />
                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                  <ChevronUpDownIcon
+                  <ChevronDownIcon
                     className="h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />

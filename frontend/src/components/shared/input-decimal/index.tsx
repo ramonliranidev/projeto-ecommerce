@@ -1,9 +1,9 @@
-import { InputHTMLAttributes, useState } from "react";
-import { Control, Controller, FieldError } from "react-hook-form";
-import { NumberFormatBase, NumericFormat } from "react-number-format";
 import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
+import { forwardRef, InputHTMLAttributes, useState } from "react";
+import { Control, Controller, FieldError } from "react-hook-form";
+import { NumericFormat } from "react-number-format";
 
-interface InputDecimalProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputDecimalProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'ref'> {
   control: Control<any>;
   name: string;
   isRequired?: boolean;
@@ -16,7 +16,7 @@ interface InputDecimalProps extends InputHTMLAttributes<HTMLInputElement> {
   divClasses?: string;
 }
 
-export function InputDecimal({
+export const InputDecimal = forwardRef<HTMLInputElement, InputDecimalProps>(({
   control,
   isRequired = false,
   name,
@@ -25,7 +25,7 @@ export function InputDecimal({
   Icon,
   error,
   divClasses = undefined,
-}: InputDecimalProps) {
+}, ref) => {
   const [isFilled, setIsFilled] = useState(false);
 
   const handleInputBlur = (event: any) => {
@@ -45,7 +45,7 @@ export function InputDecimal({
     <div className={divClasses}>
       {label && (
         <label
-          htmlFor="email"
+          htmlFor={name}
           className="block text-sm font-medium leading-6 text-gray-700"
         >
           {label + (isRequired ? " *" : "")}
@@ -72,11 +72,13 @@ export function InputDecimal({
               prefix="R$ "
               decimalSeparator=","
               name={name}
+              id={name}
               value={value}
               onChange={onChange}
               onBlur={(event) => handleInputBlur(event)}
               className={getClasses()}
               placeholder={placeholder || label}
+              getInputRef={ref}
             />
           )}
         />
@@ -92,10 +94,12 @@ export function InputDecimal({
       </div>
 
       {error && (
-        <p className="mt-2 text-sm text-red-600" id="email-error">
+        <p className="mt-2 text-sm text-red-600" id={`${name}-error`}>
           {error.message}
         </p>
       )}
     </div>
   );
-}
+});
+
+InputDecimal.displayName = 'InputDecimal';

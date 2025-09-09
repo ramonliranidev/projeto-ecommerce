@@ -290,7 +290,6 @@ const Page: NextPageWithLayout = () => {
                                   type="checkbox"
                                   className="h-4 w-4 rounded border-gray-300 text-off-red focus:ring-off-red"
                                   onChange={() => {
-                                    // Ensure that option.value is defined before calling handleSelection
                                     if (option.value !== undefined) {
                                       handleSelection(
                                         option.value,

@@ -128,12 +128,14 @@ const Page: NextPageWithLayout<PageProps> = (props: PageProps) => {
     watch,
   } = methods;
 
+  const productCategoryId = watch("productCategoryId");
+
   useEffect(() => {
     async function getSubcategories() {
       try {
         const response = await fetch("/api/list-subcategories-by-category", {
           method: "POST",
-          body: JSON.stringify({ id: watch("productCategoryId") }),
+          body: JSON.stringify({ id: productCategoryId }),
         }).then((res) => res.json());
 
         setSubcategories(response.subcategories);
@@ -141,7 +143,7 @@ const Page: NextPageWithLayout<PageProps> = (props: PageProps) => {
     }
 
     getSubcategories();
-  }, [watch("productCategoryId")]);
+  }, [productCategoryId]);
 
   async function onSubmit(formData: FormData) {
     const newPrice = get(formData, "price", 0);
@@ -243,10 +245,10 @@ const Page: NextPageWithLayout<PageProps> = (props: PageProps) => {
             <div className="col-span-6 sm:col-span-3 flex items-center justify-between">
               <InputDecimal
                 control={control}
+                name="price"
                 isRequired
                 divClasses="w-full"
                 label="Preço"
-                {...register("price")}
                 error={errors.price}
               />
             </div>
@@ -254,9 +256,9 @@ const Page: NextPageWithLayout<PageProps> = (props: PageProps) => {
             <div className="col-span-6 sm:col-span-3 flex items-center justify-between">
               <InputDecimal
                 control={control}
+                name="discount"
                 divClasses="w-full"
                 label="Desconto"
-                {...register("discount")}
                 error={errors.discount}
               />
             </div>
@@ -276,7 +278,7 @@ const Page: NextPageWithLayout<PageProps> = (props: PageProps) => {
                 control={control}
                 options={productCategories}
                 label="Categoria do Produto"
-                {...register("productCategoryId")}
+                name="productCategoryId"
                 error={errors.name}
               />
             </div>
@@ -286,7 +288,7 @@ const Page: NextPageWithLayout<PageProps> = (props: PageProps) => {
                 options={subcategories}
                 isRequired
                 label="Subcategorias"
-                {...register("subcategories")}
+                name="subcategories"
                 divClasses="w-full"
               />
             </div>
@@ -333,6 +335,7 @@ export const getServerSideProps = requireAuthentication(
     const token = req.session.token as string;
 
     if (typeof query?.id === "string" && query?.id && query.id !== "new") {
+      // eslint-disable-next-line
       const response = await getById({
         id: query.id,
         url,

@@ -18,13 +18,6 @@ import { Checkbox } from "@/components/shared/checkbox";
 import { Input } from "@/components/shared/input";
 import { PageTitle } from "@/components/shared/page-title";
 import { Layout } from "@/components/system/layout";
-<<<<<<< HEAD
-=======
-import { Input } from "@/components/shared/input";
-import { Button } from "@/components/shared/button";
-import { PageTitle } from "@/components/shared/page-title";
-import { Checkbox } from "@/components/shared/checkbox";
->>>>>>> cc587cd ([FRONTEND] Fix AutoCompletemultiple)
 import { getHeaders } from "@/helpers/get-headers";
 import fetchJson from "@/lib/fetch-json";
 
@@ -186,6 +179,7 @@ export const getServerSideProps = requireAuthentication(
     const token = req.session.token as string;
 
     if (typeof query?.id === "string" && query?.id && query.id !== "new") {
+      // eslint-disable-next-line
       const response = await getById({
         id: query.id,
         url,
@@ -201,7 +195,7 @@ export const getServerSideProps = requireAuthentication(
         };
       }
 
-      role = response.role;
+      role = response.role ;
     } else {
       const { headers } = getHeaders(req as NextApiRequest);
       const { menuItems } = await fetchJson<any>("/menu-items/list", {
